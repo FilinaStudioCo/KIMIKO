@@ -1,5 +1,8 @@
 <body>
-  <header>… (logo, nav) …</header>
+  <header>
+    <!-- TODO: put your logo + nav here -->
+  </header>
+
   <main class="page-shell">
     <div id="page-home" class="page active">
       <section class="stories-strip" id="stories-strip"></section>
@@ -7,19 +10,386 @@
     </div>
 
     <div id="story-viewer" class="story-overlay hidden">
-      <!-- story image, progress bar, caption -->
+      <!-- story image, caption injected by JS -->
     </div>
   </main>
 
+  <style>
+    .stories-strip {
+      display: flex;
+      gap: 0.8rem;
+      padding: 1.4rem 0 1rem;
+      overflow-x: auto;
+    }
+    .story-bubble {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .story-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid var(--sky);
+      box-shadow: 0 0 0 3px #FFFDF8;
+    }
+    .story-name {
+      font-size: 0.7rem;
+      color: var(--accent-subtle);
+    }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-bottom: 2rem;
+    }
+
+    .feed-card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      padding: 0.9rem 0.9rem 1.1rem;
+    }
+    .feed-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+    .feed-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background-size: cover;
+      background-position: center;
+    }
+    .feed-header-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .feed-user-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .feed-handle-time {
+      font-size: 0.78rem;
+      color: var(--accent-subtle);
+    }
+    .feed-image {
+      border-radius: 14px;
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 0.6rem;
+    }
+    .feed-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .feed-chip {
+      font-size: 0.75rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--sky-soft);
+      color: var(--accent-soft);
+    }
+    .feed-caption {
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+      margin-bottom: 0.5rem;
+    }
+    .feed-actions {
+      font-size: 0.8rem;
+      color: var(--accent-subtle);
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Story overlay */
+    .story-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+    }
+    .story-overlay.hidden {
+      display: none;
+    }
+    .story-inner {
+      width: min(420px, 92vw);
+      background: #FFFDF8;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .story-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 0.9rem;
+    }
+    .story-header .story-avatar {
+      width: 32px;
+      height: 32px;
+      box-shadow: none;
+    }
+    .story-user-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .story-sub {
+      font-size: 0.78rem;
+      color: var(--accent-subtle);
+    }
+    .story-close {
+      margin-left: auto;
+      border: none;
+      background: transparent;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--accent-soft);
+    }
+    .story-image {
+      height: 260px;
+      background-size: cover;
+      background-position: center;
+    }
+    .story-caption {
+      padding: 0.8rem 0.9rem 1rem;
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+    }
+    .story-meal {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-subtle);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+  </style>
+
   <script>
-    const USERS = [ /* {id, name, handle, avatar} */ ];
-    const STORIES = [ /* {id, userId, items: [...] } */ ];
-    const POSTS  = [ /* {id, userId, image, caption, ...} */ ];
+    // USERS
+    const USERS = [
+      {
+        id: "u1",
+        name: "Amélie Roche",
+        handle: "@amelie.eats",
+        avatar: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=200&q=80",
+        bio: "Soft breakfasts, late clinic dinners, whole-food only."
+      },
+      {
+        id: "u2",
+        name: "Dr. Kimiko",
+        handle: "@kimiko.whole",
+        avatar: "https://images.unsplash.com/photo-1544723795-432537dc3f31?w=200&q=80",
+        bio: "Recipes for the on-call and off-duty."
+      },
+      {
+        id: "u3",
+        name: "Luca",
+        handle: "@luca.cooks",
+        avatar: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=200&q=80",
+        bio: "Whole-food, no stress meal prep."
+      }
+    ];
 
-    function renderStoriesStrip() { /* build bubbles from STORIES + USERS */ }
-    function renderFeed() { /* map POSTS to feed cards */ }
-    function openStory(storyId) { /* show overlay, step through items */ }
+    // STORIES
+    const STORIES = [
+      {
+        id: "s1",
+        userId: "u2",
+        createdAt: "2026-03-16T06:45:00Z",
+        expiresAt: "2026-03-17T06:45:00Z",
+        items: [
+          {
+            image: "https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=800&q=80",
+            caption: "Soft oats before a long shift.",
+            meal: "breakfast",
+            createdAt: "2026-03-16T06:45:00Z"
+          },
+          {
+            image: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=800&q=80",
+            caption: "Green goddess in between patients.",
+            meal: "drink",
+            createdAt: "2026-03-16T10:30:00Z"
+          }
+        ]
+      },
+      {
+        id: "s2",
+        userId: "u1",
+        createdAt: "2026-03-16T12:05:00Z",
+        expiresAt: "2026-03-17T12:05:00Z",
+        items: [
+          {
+            image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80",
+            caption: "Market lunch: roasted veg & lentils.",
+            meal: "lunch",
+            createdAt: "2026-03-16T12:05:00Z"
+          }
+        ]
+      }
+    ];
 
+    // POSTS
+    const POSTS = [
+      {
+        id: "p1",
+        userId: "u2",
+        image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&q=80",
+        caption: "Whole-food miso soba after 12 hours on call. No powders, just broth.",
+        type: "cooked",
+        meal: "dinner",
+        mood: "comfort",
+        location: "Home kitchen",
+        createdAt: "2026-03-15T21:20:00Z",
+        likes: 32,
+        commentsCount: 4
+      },
+      {
+        id: "p2",
+        userId: "u1",
+        image: "https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=800&q=80",
+        caption: "Layered overnight oats for tomorrow's clinic mornings.",
+        type: "prepped",
+        meal: "breakfast",
+        mood: "soft",
+        location: "Apartment",
+        createdAt: "2026-03-15T19:02:00Z",
+        likes: 54,
+        commentsCount: 7
+      },
+      {
+        id: "p3",
+        userId: "u3",
+        image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80",
+        caption: "Soup for four, all plants.",
+        type: "cooked",
+        meal: "dinner",
+        mood: "share",
+        location: "Friends' place",
+        createdAt: "2026-03-14T18:40:00Z",
+        likes: 19,
+        commentsCount: 1
+      }
+    ];
+
+    function getUser(userId) {
+      return USERS.find(u => u.id === userId);
+    }
+
+    function timeAgo(iso) {
+      const diffMs = Date.now() - Date.parse(iso);
+      const diffH = Math.floor(diffMs / 1000 / 60 / 60);
+      if (diffH < 1) return "Just now";
+      if (diffH < 24) return diffH + "h ago";
+      const diffD = Math.floor(diffH / 24);
+      return diffD + "d ago";
+    }
+
+    // STORIES STRIP
+    function renderStoriesStrip() {
+      const root = document.getElementById("stories-strip");
+      if (!root) return;
+      root.innerHTML = STORIES.map(story => {
+        const user = getUser(story.userId);
+        return `
+          <button class="story-bubble" onclick="openStory('${story.id}')">
+            <span class="story-avatar" style="background-image:url('${user.avatar}')"></span>
+            <span class="story-name">${user.name.split(" ")[0]}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    // FEED
+    function renderFeed() {
+      const root = document.getElementById("feed-list");
+      if (!root) return;
+      const sorted = [...POSTS].sort(
+        (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+      );
+      root.innerHTML = sorted.map(post => {
+        const user = getUser(post.userId);
+        return `
+          <article class="feed-card">
+            <header class="feed-card-header">
+              <span class="feed-avatar" style="background-image:url('${user.avatar}')"></span>
+              <div class="feed-header-text">
+                <span class="feed-user-name">${user.name}</span>
+                <span class="feed-handle-time">${user.handle} · ${timeAgo(post.createdAt)}</span>
+              </div>
+            </header>
+            <div class="feed-image" style="background-image:url('${post.image}')"></div>
+            <div class="feed-meta-row">
+              <span class="feed-chip">${post.type}</span>
+              <span class="feed-chip">${post.meal}</span>
+              ${post.mood ? `<span class="feed-chip">${post.mood}</span>` : ""}
+              ${post.location ? `<span class="feed-chip">${post.location}</span>` : ""}
+            </div>
+            <p class="feed-caption">${post.caption}</p>
+            <div class="feed-actions">
+              <span>♥ ${post.likes}</span>
+              <span>💬 ${post.commentsCount}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // STORY VIEWER
+    function openStory(storyId) {
+      const story = STORIES.find(s => s.id === storyId);
+      if (!story) return;
+      const user = getUser(story.userId);
+      const overlay = document.getElementById("story-viewer");
+      if (!overlay) return;
+
+      const first = story.items[0];
+      overlay.innerHTML = `
+        <div class="story-inner">
+          <header class="story-header">
+            <span class="story-avatar" style="background-image:url('${user.avatar}')"></span>
+            <div>
+              <div class="story-user-name">${user.name}</div>
+              <div class="story-sub">${user.handle} · ${timeAgo(story.createdAt)}</div>
+            </div>
+            <button class="story-close" onclick="closeStory()">×</button>
+          </header>
+          <div class="story-image" style="background-image:url('${first.image}')"></div>
+          <div class="story-caption">
+            <span class="story-meal">${first.meal}</span>
+            <p>${first.caption}</p>
+          </div>
+        </div>
+      `;
+      overlay.classList.remove("hidden");
+    }
+
+    function closeStory() {
+      const overlay = document.getElementById("story-viewer");
+      if (!overlay) return;
+      overlay.classList.add("hidden");
+    }
+
+    // INIT
     renderStoriesStrip();
     renderFeed();
   </script>
