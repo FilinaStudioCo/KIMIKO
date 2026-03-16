@@ -3,28 +3,34 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KIMIKO — Whole-food recipe workspace</title>
+  <title>KIMIKO — Whole-Food Salon</title>
 
-  <!-- Clean SaaS typography: Inter + subtle Playfair headings -->
+  <!-- Modern + regal: Inter + Playfair -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
-      --bg: #F5F6FA;
-      --bg-soft: #EFF1F7;
+      /* Marie Antoinette / royalcore pastels */
+      --bg: #FBF7F2;          /* warm cream */
+      --bg-soft: #F4ECE4;     /* soft parchment */
       --card: #FFFFFF;
-      --border: #E0E2EB;
-      --accent: #111827; /* charcoal */
-      --accent-soft: #6B7280;
-      --accent-subtle: #9CA3AF;
-      --accent-blue: #2563EB;
-      --danger: #DC2626;
+      --border: #E3D6C7;      /* warm beige */
+      --accent: #1C2734;      /* deep slate text */
+      --accent-soft: #6E7580;
+      --accent-subtle: #A49C92;
+      --sky: #7BA9E6;         /* sky blue accent */
+      --sky-soft: #E4F0FF;    /* very light blue */
+      --rose: #E9A7C1;        /* soft rose detail */
+      --gold-line: #D7C4A1;
+
       --radius-lg: 24px;
       --radius: 18px;
-      --radius-sm: 999px;
-      --shadow-soft: 0 18px 60px rgba(15,23,42,0.18);
-      --shadow-card: 0 10px 30px rgba(15,23,42,0.10);
+      --radius-pill: 999px;
+
+      --shadow-soft: 0 18px 60px rgba(153,131,104,0.22);
+      --shadow-card: 0 10px 30px rgba(153,131,104,0.18);
+
       --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --font-serif: "Playfair Display", serif;
       --transition: all 0.25s ease-out;
@@ -34,18 +40,15 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-sans);
-      background: var(--bg);
+      background: radial-gradient(circle at top, #FDF9F5 0%, #FBF7F2 55%, #F4ECE4 100%);
       color: var(--accent);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #D1C7BA; border-radius: 3px; }
 
-    /* LAYOUT SHELL */
     .page-shell {
       max-width: 1120px;
       margin: 0 auto;
@@ -57,9 +60,9 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(245,246,250,0.96);
+      background: rgba(251,247,242,0.96);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(224,226,235,0.9);
+      border-bottom: 1px solid rgba(227,214,199,0.9);
     }
     .nav-inner {
       max-width: 1120px;
@@ -72,48 +75,47 @@
     }
     .logo {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       cursor: pointer;
       color: var(--accent);
     }
-    .logo span {
-      font-weight: 700;
-    }
+    .logo span { color: var(--sky); }
+
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
       list-style: none;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
     }
     .nav-links a {
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       text-decoration: none;
-      color: var(--accent-subtle);
       font-weight: 600;
+      color: var(--accent-subtle);
       transition: color 0.18s ease-out;
     }
     .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent);
-    }
+    .nav-links a.active { color: var(--accent); }
+
     .nav-cta {
       font-size: 0.78rem;
-      padding: 0.45rem 1rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: #FFFFFF;
+      padding: 0.45rem 1.1rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gold-line);
+      background: #FFFDF8;
       color: var(--accent);
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 6px 18px rgba(153,131,104,0.24);
       transition: var(--transition);
     }
     .nav-cta:hover {
-      border-color: #CBD1E4;
-      box-shadow: 0 8px 24px rgba(15,23,42,0.12);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-card);
     }
 
     .hamburger {
@@ -121,22 +123,22 @@
       background: none;
       border: none;
       font-size: 1.4rem;
-      cursor: pointer;
       color: var(--accent);
+      cursor: pointer;
     }
     .nav-mobile {
       display: none;
       flex-direction: column;
       list-style: none;
       padding: 0.8rem 1.8rem 1.2rem;
+      background: rgba(251,247,242,0.98);
       border-top: 1px solid var(--border);
-      background: rgba(245,246,250,0.98);
     }
     .nav-mobile.visible { display: flex; }
     .nav-mobile li a {
-      padding: 0.5rem 0;
+      padding: 0.6rem 0;
       font-size: 0.78rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       text-decoration: none;
       color: var(--accent-subtle);
@@ -146,14 +148,14 @@
     /* HERO */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr);
       gap: 2.8rem;
       padding: 3.2rem 0 2.8rem;
       align-items: center;
     }
     .hero-kicker {
       font-size: 0.78rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent-subtle);
       font-weight: 600;
@@ -161,30 +163,33 @@
     }
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(2.1rem, 4vw, 3rem);
+      font-size: clamp(2.2rem,4vw,3.1rem);
       line-height: 1.1;
       margin-bottom: 0.8rem;
-      color: var(--accent);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--sky);
     }
     .hero-sub {
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       color: var(--accent-soft);
-      max-width: 420px;
-      margin-bottom: 1.8rem;
+      max-width: 440px;
+      margin-bottom: 1.7rem;
     }
     .hero-meta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.6rem;
+      gap: 0.9rem;
+      margin-bottom: 1.5rem;
       font-size: 0.8rem;
-      color: var(--accent-subtle);
     }
     .hero-meta-pill {
-      padding: 0.35rem 0.8rem;
-      border-radius: var(--radius-sm);
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gold-line);
+      background: #FFFDF8;
+      color: var(--accent-subtle);
     }
     .hero-actions {
       display: flex;
@@ -193,13 +198,13 @@
       align-items: center;
     }
     .btn-primary {
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--accent);
-      background: var(--accent);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--sky);
+      background: var(--sky);
       color: #FFFFFF;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      padding: 0.7rem 1.4rem;
+      padding: 0.7rem 1.5rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -208,19 +213,19 @@
       transition: var(--transition);
     }
     .btn-primary:hover {
-      background: #020617;
-      border-color: #020617;
+      background: #4F80C7;
+      border-color: #4F80C7;
       transform: translateY(-1px);
       box-shadow: var(--shadow-soft);
     }
     .btn-ghost {
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      background: #FFFFFF;
+      background: #FFFDF8;
       color: var(--accent);
       font-size: 0.82rem;
       font-weight: 500;
-      padding: 0.65rem 1.2rem;
+      padding: 0.65rem 1.3rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -229,15 +234,15 @@
     }
     .btn-ghost:hover {
       box-shadow: var(--shadow-card);
-      border-color: #CBD1E4;
+      border-color: var(--gold-line);
     }
     .hero-note {
+      margin-top: 0.9rem;
       font-size: 0.8rem;
       color: var(--accent-subtle);
-      margin-top: 0.9rem;
     }
 
-    /* HERO RIGHT: FLOATING CARDS */
+    /* HERO RIGHT: PASTEL FLOATING CARDS */
     .hero-right {
       position: relative;
       height: 320px;
@@ -248,66 +253,65 @@
     }
     .hero-fake-bg {
       position: absolute;
-      inset: 12%;
-      border-radius: 32px;
-      background: #E5E7F1;
-      opacity: 0.8;
+      inset: 10%;
+      border-radius: 36px;
+      background: radial-gradient(circle at top left, var(--sky-soft) 0%, #FBF7F2 50%, #F3E7DA 100%);
+      opacity: 0.95;
     }
     .hero-card-main,
     .hero-card-secondary,
     .hero-card-tertiary {
       position: absolute;
-      width: 260px;
-      border-radius: 26px;
-      background: #FFFFFF;
+      width: 250px;
+      border-radius: 24px;
+      background: var(--card);
       border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
       padding: 1rem 1rem 1.1rem;
-      pointer-events: auto;
     }
-    .hero-card-main {
-      transform: translateY(0) rotate(-2deg);
-      z-index: 3;
+    .hero-card-main::before,
+    .hero-card-secondary::before,
+    .hero-card-tertiary::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.7);
+      pointer-events: none;
     }
-    .hero-card-secondary {
-      transform: translate(-80px, -40px) rotate(-8deg);
-      opacity: 0.7;
-      z-index: 1;
-    }
-    .hero-card-tertiary {
-      transform: translate(70px, 40px) rotate(6deg);
-      opacity: 0.6;
-      z-index: 0;
-    }
+    .hero-card-main { transform: translateY(0) rotate(-2deg); z-index: 3; }
+    .hero-card-secondary { transform: translate(-80px,-40px) rotate(-8deg); opacity: 0.75; z-index: 1; }
+    .hero-card-tertiary { transform: translate(70px,40px) rotate(6deg); opacity: 0.6; z-index: 0; }
+
     .hero-card-tag {
       font-size: 0.7rem;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent-subtle);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
     }
     .hero-card-title {
       font-family: var(--font-serif);
       font-size: 1rem;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     .hero-card-meta {
       display: flex;
       gap: 0.5rem;
       font-size: 0.75rem;
       color: var(--accent-subtle);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
     .hero-card-pill {
-      padding: 0.25rem 0.6rem;
-      border-radius: var(--radius-sm);
-      background: var(--bg-soft);
+      padding: 0.22rem 0.7rem;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border);
+      background: var(--sky-soft);
     }
     .hero-card-footer {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.75rem;
       color: var(--accent-subtle);
     }
@@ -320,48 +324,20 @@
       background-position: center;
     }
 
-    /* STRIP: FOR WHOM */
-    .strip {
-      margin-top: 0.4rem;
-      padding: 0.9rem 1.4rem;
-      border-radius: 999px;
-      background: #E5E7F1;
-      border: 1px solid #D2D6E5;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.1rem;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--accent-subtle);
-    }
-    .strip-label {
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.75rem;
-    }
-    .strip-pill {
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
-      background: #FFFFFF;
-      border: 1px solid transparent;
-    }
-
     /* SECTION HEADERS */
     .section {
-      margin-top: 3.2rem;
+      margin-top: 3.1rem;
     }
     .section-header {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
       align-items: flex-end;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.5rem;
     }
     .section-kicker {
       font-size: 0.78rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent-subtle);
       font-weight: 600;
@@ -372,7 +348,7 @@
       font-size: 1.6rem;
     }
     .section-sub {
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       color: var(--accent-soft);
       max-width: 360px;
     }
@@ -380,42 +356,60 @@
     /* BENEFIT CARDS */
     .benefit-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
       gap: 1.4rem;
     }
     .benefit-card {
+      position: relative;
       background: var(--card);
-      border-radius: var(--radius);
+      border-radius: 22px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-card);
-      padding: 1.1rem 1.1rem 1.2rem;
+      padding: 1.1rem 1.2rem 1.3rem;
+    }
+    .benefit-card::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,0.8);
+      pointer-events: none;
     }
     .benefit-label {
       font-size: 0.78rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       color: var(--accent-subtle);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
     .benefit-title {
       font-size: 0.98rem;
       font-weight: 600;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     .benefit-text {
       font-size: 0.85rem;
       color: var(--accent-soft);
     }
 
-    /* APP PANEL + GRID */
+    /* APP PANEL + FILTERS */
     .app-panel {
+      position: relative;
       background: var(--card);
       border-radius: 24px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
       padding: 1.2rem 1.2rem 1.4rem;
       margin-top: 1.2rem;
+    }
+    .app-panel::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.9);
+      pointer-events: none;
     }
     .app-header-row {
       display: flex;
@@ -426,7 +420,6 @@
     .app-title {
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--accent);
     }
     .app-caption {
       font-size: 0.8rem;
@@ -436,7 +429,7 @@
     .search-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.7rem;
       align-items: center;
       margin-bottom: 0.8rem;
     }
@@ -446,15 +439,15 @@
       border: 1px solid var(--border);
       padding: 0.6rem 0.9rem;
       font-size: 0.82rem;
-      outline: none;
       background: var(--bg);
+      outline: none;
       color: var(--accent);
       transition: var(--transition);
     }
     .search-input:focus {
-      border-color: var(--accent);
-      background: #FFFFFF;
-      box-shadow: 0 0 0 1px rgba(15,23,42,0.08);
+      border-color: var(--sky);
+      background: #FFFDF8;
+      box-shadow: 0 0 0 1px rgba(123,169,230,0.2);
     }
 
     .filter-chips {
@@ -464,7 +457,7 @@
     }
     .filter-chip {
       font-size: 0.78rem;
-      padding: 0.32rem 0.75rem;
+      padding: 0.32rem 0.8rem;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
@@ -474,35 +467,45 @@
     }
     .filter-chip.active,
     .filter-chip:hover {
-      border-color: var(--accent);
-      background: #FFFFFF;
+      border-color: var(--sky);
+      background: var(--sky-soft);
       color: var(--accent);
     }
 
+    /* RECIPE GRID */
     .recipe-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fill,minmax(230px,1fr));
       gap: 1.2rem;
-      margin-top: 0.8rem;
+      margin-top: 0.9rem;
     }
     .recipe-card {
-      border-radius: var(--radius);
+      position: relative;
+      border-radius: 20px;
       border: 1px solid var(--border);
-      background: #FFFFFF;
+      background: var(--card);
       box-shadow: var(--shadow-card);
-      padding: 0.9rem 0.9rem 1rem;
+      padding: 0.9rem 0.9rem 1.1rem;
       cursor: pointer;
-      transition: var(--transition);
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
+      transition: var(--transition);
+    }
+    .recipe-card::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.9);
+      pointer-events: none;
     }
     .recipe-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-soft);
     }
     .recipe-image {
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       height: 120px;
       background-size: cover;
@@ -510,19 +513,18 @@
     }
     .recipe-pill {
       align-self: flex-start;
-      margin-top: 0.4rem;
+      margin-top: 0.35rem;
       font-size: 0.7rem;
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.65rem;
       border-radius: 999px;
       border: 1px solid var(--border);
       color: var(--accent-subtle);
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
     }
     .recipe-title {
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--accent);
     }
     .recipe-desc {
       font-size: 0.82rem;
@@ -552,7 +554,7 @@
     /* DETAIL PAGE */
     .detail-wrap {
       max-width: 840px;
-      margin: 2.8rem auto 0;
+      margin: 2.6rem auto 0;
       padding: 0 0 2.8rem;
     }
     .back-link {
@@ -562,24 +564,32 @@
       font-size: 0.8rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      text-decoration: none;
       color: var(--accent-subtle);
+      text-decoration: none;
       margin-bottom: 1.4rem;
     }
-    .back-link:hover {
-      color: var(--accent);
-    }
+    .back-link:hover { color: var(--accent); }
+
     .detail-card {
-      background: #FFFFFF;
-      border-radius: 28px;
+      position: relative;
+      background: var(--card);
+      border-radius: 26px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
-      padding: 1.5rem 1.5rem 1.8rem;
+      padding: 1.5rem 1.6rem 1.9rem;
+    }
+    .detail-card::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.9);
+      pointer-events: none;
     }
     .detail-tag-row {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       margin-bottom: 0.7rem;
       font-size: 0.8rem;
       color: var(--accent-subtle);
@@ -588,7 +598,7 @@
       padding: 0.2rem 0.7rem;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: var(--bg-soft);
+      background: var(--sky-soft);
     }
     .detail-title {
       font-family: var(--font-serif);
@@ -604,16 +614,15 @@
       margin-bottom: 1.3rem;
     }
     .detail-meta-row span {
-      padding: 0.35rem 0.9rem;
+      padding: 0.32rem 0.9rem;
       border-radius: 999px;
       background: var(--bg-soft);
       border: 1px solid var(--border);
     }
-
     .detail-image {
       width: 100%;
       height: 220px;
-      border-radius: 20px;
+      border-radius: 18px;
       background-size: cover;
       background-position: center;
       margin-bottom: 1.5rem;
@@ -625,12 +634,12 @@
     }
     .detail-body {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1.3fr);
       gap: 1.8rem;
     }
     .detail-body h3 {
       font-size: 0.92rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent-subtle);
       margin-bottom: 0.6rem;
@@ -639,27 +648,23 @@
     .steps-list {
       list-style: none;
       font-size: 0.9rem;
-      color: var(--accent);
     }
     .ingredients-list li {
       padding: 0.4rem 0;
       border-bottom: 1px solid var(--border);
     }
-    .steps-list {
-      counter-reset: step;
-    }
+    .steps-list { counter-reset: step; }
     .steps-list li {
       counter-increment: step;
       padding: 0.55rem 0 0.55rem 1.8rem;
       border-bottom: 1px solid var(--border);
       position: relative;
-      font-size: 0.9rem;
     }
     .steps-list li::before {
       content: counter(step);
       position: absolute;
       left: 0;
-      top: 0.45rem;
+      top: 0.48rem;
       width: 20px;
       height: 20px;
       border-radius: 999px;
@@ -669,26 +674,16 @@
       justify-content: center;
       font-size: 0.7rem;
       color: var(--accent-subtle);
+      background: #FFFDF8;
     }
 
-    /* PAGE VISIBILITY */
     .page { display: none; }
     .page.active { display: block; }
-
     .hidden { display: none; }
 
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 2.2rem;
-      }
-      .hero-right {
-        height: 260px;
-        order: -1;
-      }
-      .strip {
-        border-radius: 20px;
-      }
+      .hero { grid-template-columns: 1fr; gap: 2.2rem; }
+      .hero-right { height: 260px; order: -1; }
     }
     @media (max-width: 720px) {
       .nav-links { display: none; }
@@ -703,9 +698,7 @@
 
 <header class="navbar">
   <div class="nav-inner">
-    <div class="logo" onclick="showPage('home')">
-      KIMI<span>KO</span>
-    </div>
+    <div class="logo" onclick="showPage('home')">KIMI<span>KO</span></div>
     <nav>
       <ul class="nav-links">
         <li><a href="#" onclick="showPage('home')">Overview</a></li>
@@ -713,7 +706,7 @@
         <li><a href="#" onclick="showPage('about')">About</a></li>
       </ul>
     </nav>
-    <button class="nav-cta" onclick="showPage('recipes')">Open recipe board</button>
+    <button class="nav-cta" onclick="showPage('recipes')">Open recipe salon</button>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
   </div>
   <ul class="nav-mobile hidden" id="mobile-menu">
@@ -729,53 +722,41 @@
   <div id="page-home" class="page active">
     <section class="hero">
       <div>
-        <p class="hero-kicker">Whole-food recipe workspace</p>
-        <h1 class="hero-title">Structure your eating,<br/>not your body.</h1>
+        <p class="hero-kicker">Whole-food recipe salon</p>
+        <h1 class="hero-title">Everyday bowls with <em>palace</em> standards.</h1>
         <p class="hero-sub">
-          KIMIKO helps you collect, search, and use whole-food recipes
-          without ultra-processed noise, ads or distraction.
+          KIMIKO gathers whole-food recipes into one calm, structured board:
+          pastel, quiet, and free from ultra‑processed shortcuts.
         </p>
         <div class="hero-meta-row">
-          <span class="hero-meta-pill">100% whole ingredients</span>
-          <span class="hero-meta-pill">0 ultra-processed shortcuts</span>
+          <span class="hero-meta-pill">Whole ingredients only</span>
+          <span class="hero-meta-pill">Designed for calm kitchens</span>
         </div>
         <div class="hero-actions">
-          <button class="btn-primary" onclick="showPage('recipes')">
-            Open recipe board
-          </button>
-          <button class="btn-ghost" onclick="showPage('recipes')">
-            Browse all recipes
-          </button>
+          <button class="btn-primary" onclick="showPage('recipes')">Open recipe board</button>
+          <button class="btn-ghost" onclick="showPage('recipes')">Browse all recipes</button>
         </div>
-        <p class="hero-note">Searchable by category, time and mood. No sign-up required.</p>
-
-        <div class="strip">
-          <span class="strip-label">Built for</span>
-          <span class="strip-pill">Clinicians & nurses</span>
-          <span class="strip-pill">Health-conscious professionals</span>
-          <span class="strip-pill">Wellness creators</span>
-          <span class="strip-pill">Anyone tired of ultra-processed food</span>
-        </div>
+        <p class="hero-note">Search by time, meal, and mood. No accounts, no ads.</p>
       </div>
 
       <div class="hero-right" aria-hidden="true">
         <div class="hero-fake-bg"></div>
 
         <article class="hero-card-secondary">
-          <div class="hero-card-tag">Quick view</div>
+          <div class="hero-card-tag">Breakfast</div>
           <div class="hero-card-title">Overnight Berry Oats</div>
           <div class="hero-card-meta">
             <span>10 min prep</span>
             <span>1 serving</span>
           </div>
           <div class="hero-card-footer">
-            <span>Cold breakfast</span>
+            <span>Cold, gentle start</span>
             <span>↗︎</span>
           </div>
         </article>
 
         <article class="hero-card-tertiary">
-          <div class="hero-card-tag">Dinner bowl</div>
+          <div class="hero-card-tag">Evening bowl</div>
           <div class="hero-card-title">Roasted Sweet Potato & Lentil</div>
           <div class="hero-card-meta">
             <span>40 min</span>
@@ -788,7 +769,7 @@
         </article>
 
         <article class="hero-card-main">
-          <div class="hero-card-tag">Focused view</div>
+          <div class="hero-card-tag">Focused recipe view</div>
           <div class="hero-card-image" style="background-image:url('https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&q=80');"></div>
           <div class="hero-card-title">Miso Ginger Broth with Soba</div>
           <div class="hero-card-meta">
@@ -796,7 +777,7 @@
             <span class="hero-card-pill">2 servings</span>
           </div>
           <div class="hero-card-footer">
-            <span>Whole-food bowl, zero shortcuts</span>
+            <span>Whole‑food bowl, zero powder sachets</span>
             <span style="font-size:0.9rem;">→</span>
           </div>
         </article>
@@ -808,51 +789,51 @@
       <div class="section-header">
         <div>
           <p class="section-kicker">Why KIMIKO</p>
-          <h2 class="section-title">Designed like a tool, not a blog.</h2>
+          <h2 class="section-title">Pastel on the surface, strict in the rules.</h2>
         </div>
         <p class="section-sub">
-          Clean layout, structured data, and whole-food-only rules.
-          Built to be used every day, not just bookmarked.
+          A calm, Marie‑Antoinette‑inspired interface that still behaves like a serious
+          tool: structured data, fast filters, no distractions.
         </p>
       </div>
       <div class="benefit-grid">
         <article class="benefit-card">
-          <p class="benefit-label">Whole-food only</p>
-          <p class="benefit-title">Ingredients you can recognise.</p>
+          <p class="benefit-label">Whole‑food standard</p>
+          <p class="benefit-title">Ingredients you could serve in a salon.</p>
           <p class="benefit-text">
-            Vegetables, fruits, whole grains, legumes, nuts, seeds, herbs.
-            No powders, no packet sauces, no ultra-processed “shortcuts”.
+            Vegetables, fruits, grains, legumes, nuts, seeds, herbs.
+            No mystery powders, packet sauces, or ultra‑processed bases.
           </p>
         </article>
         <article class="benefit-card">
-          <p class="benefit-label">Structured</p>
-          <p class="benefit-title">Searchable by reality.</p>
+          <p class="benefit-label">Structured board</p>
+          <p class="benefit-title">Everything lives in one place.</p>
           <p class="benefit-text">
-            Filter by meal type, time and servings. Quickly find a 15‑minute lunch
-            or a four‑portion dinner without scrolling endlessly.
+            Filter by meal type, time, servings. Quickly surface a soft breakfast
+            or a four‑portion supper without scrolling a blog.
           </p>
         </article>
         <article class="benefit-card">
-          <p class="benefit-label">Focused</p>
-          <p class="benefit-title">No ads, no pop‑ups.</p>
+          <p class="benefit-label">Calm interface</p>
+          <p class="benefit-title">No banners, no chaos.</p>
           <p class="benefit-text">
-            A neutral, clinical interface that gets out of the way so you can cook.
-            Your attention stays on ingredients and steps.
+            Light, airy cards and soft colour blocks keep focus on the ingredient list
+            and method — not on pop‑ups.
           </p>
         </article>
       </div>
     </section>
 
-    <!-- APP PANEL PREVIEW -->
+    <!-- APP PREVIEW -->
     <section class="section">
       <div class="section-header">
         <div>
           <p class="section-kicker">Live board</p>
-          <h2 class="section-title">Your recipes, in one view.</h2>
+          <h2 class="section-title">See the salon in action.</h2>
         </div>
         <p class="section-sub">
-          This is exactly what you get when you open the recipe board:
-          search, filter, and clean cards that behave like an app.
+          This preview is the actual board: search, filter, and click a card to open the same
+          detailed view you get on the recipes page.
         </p>
       </div>
 
@@ -888,7 +869,8 @@
           <h2 class="section-title">All recipes.</h2>
         </div>
         <p class="section-sub">
-          Same board as above, full-width. Use search and filters to find what fits the time and appetite you have today.
+          The same salon board, full‑width. Use it daily to decide what to cook
+          with the time, energy, and ingredients you have.
         </p>
       </div>
       <div class="app-panel">
@@ -924,13 +906,13 @@
       <div class="section-header">
         <div>
           <p class="section-kicker">About</p>
-          <h2 class="section-title">Why this exists.</h2>
+          <h2 class="section-title">A quiet space for real food.</h2>
         </div>
       </div>
       <p class="section-sub" style="max-width:520px;">
-        KIMIKO is a whole-food recipe workspace designed to feel like a clinical tool:
-        neutral, structured, and focused on ingredients that actually matter. No branding noise, no ads —
-        just clear instructions and real food.
+        KIMIKO is a whole‑food recipe salon: pastel‑coloured on the surface, strict underneath.
+        Every recipe follows the same rule — ingredients you would feel comfortable serving in
+        a calm, bright kitchen, without hidden ultra‑processed extras.
       </p>
     </section>
   </div>
@@ -1223,12 +1205,8 @@
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById("page-" + page).classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
-    if (page === "home") {
-      renderPreview();
-    }
-    if (page === "recipes") {
-      filterRecipes();
-    }
+    if (page === "home") renderPreview();
+    if (page === "recipes") filterRecipes();
   }
 
   function buildCard(r) {
@@ -1237,7 +1215,7 @@
         <div class="recipe-image" style="background-image:url('${r.image}');"></div>
         <span class="recipe-pill">${r.category}</span>
         <h3 class="recipe-title">${r.title}</h3>
-        <p class="recipe-desc">${r.description.substring(0, 80)}…</p>
+        <p class="recipe-desc">${r.description.substring(0,80)}…</p>
         <div class="recipe-meta-row">
           <span>⏱ ${r.time}</span>
           <span>🍽 ${r.servings}</span>
@@ -1257,7 +1235,6 @@
     });
   }
 
-  /* PREVIEW BOARD (HOME) */
   function renderPreview() {
     const grid = document.getElementById("preview-grid");
     const empty = document.getElementById("preview-empty");
@@ -1265,18 +1242,18 @@
     if (!grid) return;
     const q = input ? input.value : "";
     const filtered = filterArray(currentFilterPreview, q);
-    grid.innerHTML = filtered.slice(0, 6).map(buildCard).join("");
+    grid.innerHTML = filtered.slice(0,6).map(buildCard).join("");
     if (empty) empty.classList.toggle("hidden", filtered.length !== 0);
   }
+
   function setFilterPreview(cat, btn) {
     currentFilterPreview = cat;
-    const chips = document.querySelectorAll('.app-panel .filter-chip[data-cat]');
+    const chips = document.querySelectorAll(".app-panel .filter-chip[data-cat]");
     chips.forEach(c => c.classList.remove("active"));
     if (btn) btn.classList.add("active");
     renderPreview();
   }
 
-  /* MAIN BOARD (RECIPES PAGE) */
   function filterRecipes() {
     const grid = document.getElementById("all-recipes-grid");
     const empty = document.getElementById("no-results");
@@ -1287,6 +1264,7 @@
     grid.innerHTML = filtered.map(buildCard).join("");
     if (empty) empty.classList.toggle("hidden", filtered.length !== 0);
   }
+
   function setFilter(cat, btn) {
     currentFilter = cat;
     const chips = document.querySelectorAll("#page-recipes .filter-chip");
@@ -1295,7 +1273,6 @@
     filterRecipes();
   }
 
-  /* DETAIL */
   function openDetail(id) {
     const recipe = RECIPES.find(r => r.id === id);
     if (!recipe) return;
@@ -1330,17 +1307,11 @@
     showPage("detail");
   }
 
-  /* HOOK UP SEARCH INPUTS */
   document.addEventListener("input", (e) => {
-    if (e.target.id === "search-input") {
-      filterRecipes();
-    }
-    if (e.target.id === "search-input-preview") {
-      renderPreview();
-    }
+    if (e.target.id === "search-input") filterRecipes();
+    if (e.target.id === "search-input-preview") renderPreview();
   });
 
-  // initial render
   renderPreview();
   filterRecipes();
 </script>
