@@ -1,20 +1,86 @@
-<body>
-  <header>
-    <!-- TODO: put your logo + nav here -->
-  </header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIMIKO — Food Stories Salon</title>
 
-  <main class="page-shell">
-    <div id="page-home" class="page active">
-      <section class="stories-strip" id="stories-strip"></section>
-      <section class="feed" id="feed-list"></section>
-    </div>
-
-    <div id="story-viewer" class="story-overlay hidden">
-      <!-- story image, caption injected by JS -->
-    </div>
-  </main>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
+    :root {
+      --bg: #FBF7F2;
+      --bg-soft: #F4ECE4;
+      --card: #FFFFFF;
+      --border: #E3D6C7;
+      --accent: #1C2734;
+      --accent-soft: #6E7580;
+      --accent-subtle: #A49C92;
+      --sky: #7BA9E6;
+      --sky-soft: #E4F0FF;
+      --shadow-soft: 0 18px 60px rgba(153,131,104,0.22);
+      --shadow-card: 0 10px 30px rgba(153,131,104,0.18);
+      --radius-lg: 24px;
+      --radius: 18px;
+      --radius-pill: 999px;
+      --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: "Playfair Display", serif;
+      --transition: all 0.25s ease-out;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #FDF9F5 0%, #FBF7F2 55%, #F4ECE4 100%);
+      color: var(--accent);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #D1C7BA; border-radius: 3px; }
+
+    .page-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.8rem 3rem;
+    }
+
+    /* NAV (minimal) */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(251,247,242,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(227,214,199,0.9);
+    }
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      height: 64px;
+      padding: 0 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .logo span { color: var(--sky); }
+
+    .page { display: none; }
+    .page.active { display: block; }
+    .hidden { display: none; }
+
+    /* STORIES STRIP */
     .stories-strip {
       display: flex;
       gap: 0.8rem;
@@ -44,11 +110,12 @@
       color: var(--accent-subtle);
     }
 
+    /* FEED */
     .feed {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding-bottom: 2rem;
+      padding-bottom: 2.5rem;
     }
 
     .feed-card {
@@ -116,7 +183,7 @@
       gap: 1rem;
     }
 
-    /* Story overlay */
+    /* STORY OVERLAY */
     .story-overlay {
       position: fixed;
       inset: 0;
@@ -126,9 +193,8 @@
       justify-content: center;
       z-index: 60;
     }
-    .story-overlay.hidden {
-      display: none;
-    }
+    .story-overlay.hidden { display: none; }
+
     .story-inner {
       width: min(420px, 92vw);
       background: #FFFDF8;
@@ -147,6 +213,7 @@
       width: 32px;
       height: 32px;
       box-shadow: none;
+      border-width: 1px;
     }
     .story-user-name {
       font-size: 0.9rem;
@@ -182,7 +249,28 @@
       display: block;
       margin-bottom: 0.25rem;
     }
+
+    @media (max-width: 720px) {
+      .page-shell { padding: 0 1.2rem 2.2rem; }
+    }
   </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">KIMI<span>KO</span></div>
+      <!-- you can add nav links here later -->
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <div id="page-home" class="page active">
+      <section class="stories-strip" id="stories-strip"></section>
+      <section class="feed" id="feed-list"></section>
+    </div>
+
+    <div id="story-viewer" class="story-overlay hidden"></div>
+  </main>
 
   <script>
     // USERS
@@ -304,7 +392,6 @@
       return diffD + "d ago";
     }
 
-    // STORIES STRIP
     function renderStoriesStrip() {
       const root = document.getElementById("stories-strip");
       if (!root) return;
@@ -319,7 +406,6 @@
       }).join("");
     }
 
-    // FEED
     function renderFeed() {
       const root = document.getElementById("feed-list");
       if (!root) return;
@@ -354,7 +440,6 @@
       }).join("");
     }
 
-    // STORY VIEWER
     function openStory(storyId) {
       const story = STORIES.find(s => s.id === storyId);
       if (!story) return;
@@ -389,8 +474,8 @@
       overlay.classList.add("hidden");
     }
 
-    // INIT
     renderStoriesStrip();
     renderFeed();
   </script>
 </body>
+</html>
