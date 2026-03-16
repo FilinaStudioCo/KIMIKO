@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIMIKO — Barbiecore Whole Foods</title>
+
+  <!-- Fonts similar to imito: clean sans + elegant serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --pink: #FF4FA3;
+      --pink-soft: #FFD3EB;
+      --pink-hot: #FF1F8A;
+      --lavender: #D6C6FF;
+      --cream: #FFF7FB;
+      --white: #FFFFFF;
+      --charcoal: #1B1720;
+      --text: #2B2230;
+      --text-light: #8B7B93;
+      --border: #F0D9EA;
+      --shadow-soft: 0 10px 40px rgba(255, 79, 163, 0.25);
+      --shadow-card: 0 18px 60px rgba(26, 6, 35, 0.16);
+      --radius-lg: 30px;
+      --radius: 20px;
+      --radius-sm: 14px;
+      --font-serif: "Playfair Display", serif;
+      --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --transition: all 0.32s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #FFE9F7 0%, #FFF7FB 40%, #FFFFFF 100%);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--pink-soft); border-radius: 3px; }
+
+    /* NAV */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,247,251,0.94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(240,217,234,0.8);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.8rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: 5px;
+      color: var(--charcoal);
+      cursor: pointer;
+    }
+    .logo span { color: var(--pink-hot); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--pink-hot); }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      list-style: none;
+      padding: 1.2rem 1.8rem;
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+    }
+    .nav-mobile.visible { display: flex; }
+    .nav-mobile li a {
+      display: block;
+      padding: 0.8rem 0;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      border-bottom: 1px solid rgba(240,217,234,0.8);
+      text-decoration: none;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4.5rem 1.8rem 3.5rem;
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .hero-badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--pink-hot);
+      background: rgba(255,79,163,0.12);
+      border-radius: 999px;
+      padding: 0.4rem 1.1rem;
+      border: 1px solid rgba(255,79,163,0.5);
+      margin-bottom: 1.5rem;
+    }
+    .hero-tagline {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.8rem;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      color: var(--charcoal);
+    }
+    .hero-title span {
+      color: var(--pink-hot);
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 420px;
+      margin-bottom: 2rem;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+    .hero-note span {
+      color: var(--pink-hot);
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--pink-hot), #FF7BC4);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.9rem;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(255,79,163,0.35);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255,79,163,0.06);
+      border: 1.5px solid rgba(255,79,163,0.45);
+      color: var(--pink-hot);
+      border-radius: 999px;
+      padding: 0.85rem 1.6rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-ghost:hover {
+      background: white;
+      box-shadow: 0 8px 26px rgba(26,6,35,0.15);
+    }
+
+    .hero-right { position: relative; }
+    .hero-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--cream);
+      color: var(--pink-hot);
+      border-radius: 999px;
+      padding: 0.25rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+      color: var(--charcoal);
+    }
+    .hero-card-meta {
+      display: flex;
+      gap: 0.9rem;
+      font-size: 0.76rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    .hero-card-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: var(--cream);
+    }
+    .hero-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .hero-tag-pill {
+      font-size: 0.72rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: var(--pink-soft);
+      color: var(--pink-hot);
+      font-weight: 600;
+    }
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-light);
+    }
+    .hero-thumb {
+      position: absolute;
+      right: -18px;
+      bottom: -10px;
+      width: 120px;
+      height: 120px;
+      border-radius: 32px;
+      background-image: url("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80");
+      background-size: cover;
+      background-position: center;
+      box-shadow: var(--shadow-card);
+      transform: rotate(-8deg);
+    }
+    .hero-float {
+      position: absolute;
+      top: -16px;
+      right: -8px;
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: linear-gradient(135deg,#FF9FD4,#FFC7E8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-float span {
+      display: block;
+      text-align: center;
+    }
+    .hero-sticker {
+      position: absolute;
+      left: -18px;
+      bottom: -18px;
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      border: 2px dashed rgba(255,79,163,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--pink-hot);
+      background: rgba(255,255,255,0.9);
+      transform: rotate(-12deg);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    /* SECTION SHELL */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3.5rem 1.8rem;
+    }
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+      flex-wrap: wrap;
+    }
+    .section-kicker {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--pink-hot);
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--charcoal);
+    }
+    .section-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 380px;
+    }
+
+    /* CATEGORIES AS CHIPS */
+    .cat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .cat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.9);
+      font-size: 0.8rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .cat-chip span.emoji { font-size: 1rem; }
+    .cat-chip:hover,
+    .cat-chip.active {
+      border-color: var(--pink-hot);
+      background: var(--pink-soft);
+      color: var(--pink-hot);
+      box-shadow: 0 6px 22px rgba(255,79,163,0.25);
+    }
+
+    /* RECIPE CARDS */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap: 1.8rem;
+    }
+    .recipe-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.1rem 1.2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .recipe-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 22px 60px rgba(26,6,35,0.22);
+    }
+    .recipe-img {
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 0.9rem;
+    }
+    .recipe-img img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .recipe-card:hover .recipe-img img { transform: scale(1.06); }
+    .recipe-pill {
+      position: absolute;
+      top: 1.1rem;
+      left: 1.1rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--pink-hot);
+    }
+    .recipe-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+      color: var(--charcoal);
+    }
+    .recipe-desc {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 0.7rem;
+    }
+    .recipe-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+    .recipe-meta span { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .recipe-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--pink-hot);
+      transition: var(--transition);
+    }
+    .recipe-card:hover .recipe-arrow {
+      background: var(--pink-hot);
+      color: white;
+    }
+
+    /* SEARCH / FILTER PAGE */
+    .filter-shell {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.4rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 2.2rem;
+    }
+    .filter-search {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      font-size: 0.86rem;
+      background: var(--cream);
+      outline: none;
+      color: var(--text);
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+    .filter-search:focus {
+      border-color: var(--pink-hot);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(255,79,163,0.14);
+    }
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* DETAIL PAGE */
+    .detail-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3.2rem 1.8rem 4.5rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--pink-hot);
+      text-decoration: none;
+      margin-bottom: 1.6rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .detail-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      background: var(--pink-soft);
+      color: var(--pink-hot);
+      padding: 0.3rem 0.9rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+    .detail-title {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      margin-bottom: 0.9rem;
+      color: var(--charcoal);
+    }
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 1.8rem;
+    }
+    .detail-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      border-radius: 999px;
+      background: var(--cream);
+      padding: 0.35rem 0.85rem;
+    }
+    .detail-img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      margin-bottom: 1.8rem;
+      box-shadow: var(--shadow-card);
+    }
+    .detail-desc {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 2.2rem;
+      border-left: 3px solid var(--pink-hot);
+      padding-left: 1rem;
+    }
+    .detail-body {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1.4fr);
+      gap: 2.6rem;
+    }
+    .detail-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--charcoal);
+    }
+    .ingredients-list {
+      list-style: none;
+      font-size: 0.9rem;
+    }
+    .ingredients-list li {
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .ingredients-list li::before {
+      content: "•";
+      color: var(--pink-hot);
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .steps-list {
+      list-style: none;
+      counter-reset: step;
+    }
+    .steps-list li {
+      counter-increment: step;
+      position: relative;
+      padding: 0.85rem 0 0.85rem 2.4rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .steps-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.8rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--pink-hot);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* FOOTER */
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      padding: 2.6rem 1.8rem 2rem;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    .footer span.brand {
+      font-family: var(--font-serif);
+      letter-spacing: 4px;
+      color: var(--charcoal);
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { order: -1; }
+    }
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .section { padding: 3rem 1.4rem; }
+      .detail-body { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <span class="logo" onclick="showPage('home')">KIMI<span>KO</span></span>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="showPage('recipes')">Recipes</a></li>
+      <li><a href="#" onclick="showPage('about')">About</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+  <ul class="nav-mobile hidden" id="mobile-menu">
+    <li><a href="#" onclick="showPage('home');toggleMenu()">Home</a></li>
+    <li><a href="#" onclick="showPage('recipes');toggleMenu()">Recipes</a></li>
+    <li><a href="#" onclick="showPage('about');toggleMenu()">About</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div>
+      <div class="hero-badge-top">BARBIECORE • WHOLE FOODS</div>
+      <p class="hero-tagline">It-girl recipes for real nourishment</p>
+      <h1 class="hero-title">Whole food made <span>main character</span>.</h1>
+      <p class="hero-sub">
+        KIMIKO is your pink, whole-food recipe hub — no ultra-processed chaos, just pretty plates with real ingredients that actually love you back.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('recipes')">Browse all recipes →</button>
+        <button class="btn-ghost" onclick="showPage('recipes')">Surprise me</button>
+      </div>
+      <p class="hero-note"><span>10+</span> curated whole-food recipes to start. No junk, no beige diet sadness.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-float"><span>NEW<br/>DROP</span></div>
+        <div class="hero-sticker">Whole<br/>foods<br/>only</div>
+        <div class="hero-chip">Signature bowl</div>
+        <p class="hero-card-title">Golden Turmeric Oat Bowl</p>
+        <div class="hero-card-meta">
+          <span>⏱ 15 min</span>
+          <span>🍽 2 servings</span>
+        </div>
+        <div class="hero-card-tags">
+          <span class="hero-tag-pill">Glowy morning</span>
+          <span class="hero-tag-pill">Anti-inflammatory</span>
+          <span class="hero-tag-pill">No sugar crash</span>
+        </div>
+        <div class="hero-card-footer">
+          <span>Featured in KIMIKO launches</span>
+          <span>→</span>
+        </div>
+        <div class="hero-thumb"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">CATEGORIES</p>
+        <h2 class="section-title">What vibe are you in?</h2>
+      </div>
+    </div>
+    <div class="cat-row">
+      <button class="cat-chip active" onclick="setFilterAndGo('all', this)"><span class="emoji">✨</span><span>All recipes</span></button>
+      <button class="cat-chip" onclick="setFilterAndGo('breakfast', this)"><span class="emoji">🌅</span><span>Soft girl breakfast</span></button>
+      <button class="cat-chip" onclick="setFilterAndGo('lunch', this)"><span class="emoji">🥗</span><span>Office girl lunch</span></button>
+      <button class="cat-chip" onclick="setFilterAndGo('dinner', this)"><span class="emoji">🍷</span><span>Date-night dinner</span></button>
+      <button class="cat-chip" onclick="setFilterAndGo('snacks', this)"><span class="emoji">🍓</span><span>Pick-me-up snacks</span></button>
+      <button class="cat-chip" onclick="setFilterAndGo('drinks', this)"><span class="emoji">🧋</span><span>Glow drinks</span></button>
+      <button class="cat-chip" onclick="setFilterAndGo('desserts', this)"><span class="emoji">🍰</span><span>Sweet girl desserts</span></button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">FEATURED</p>
+        <h2 class="section-title">Main-character meals</h2>
+      </div>
+    </div>
+    <div class="recipe-grid" id="featured-grid"></div>
+  </section>
+</div>
+
+<!-- RECIPES PAGE -->
+<div id="page-recipes" class="page">
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">ALL RECIPES</p>
+        <h2 class="section-title">Scroll the whole menu.</h2>
+      </div>
+      <p class="section-desc">
+        Search by craving or tap a category. All recipes are built on whole, real ingredients — no mystery powders, no "just add packet" shortcuts.
+      </p>
+    </div>
+
+    <div class="filter-shell">
+      <input id="search-input" class="filter-search" placeholder="Search by name or ingredient..."/>
+      <div class="filter-chips">
+        <button class="cat-chip active" onclick="setFilter('all', this)"><span class="emoji">✨</span><span>All</span></button>
+        <button class="cat-chip" onclick="setFilter('breakfast', this)"><span class="emoji">🌅</span><span>Breakfast</span></button>
+        <button class="cat-chip" onclick="setFilter('lunch', this)"><span class="emoji">🥗</span><span>Lunch</span></button>
+        <button class="cat-chip" onclick="setFilter('dinner', this)"><span class="emoji">🍲</span><span>Dinner</span></button>
+        <button class="cat-chip" onclick="setFilter('snacks', this)"><span class="emoji">🍓</span><span>Snacks</span></button>
+        <button class="cat-chip" onclick="setFilter('drinks', this)"><span class="emoji">🧋</span><span>Drinks</span></button>
+        <button class="cat-chip" onclick="setFilter('desserts', this)"><span class="emoji">🍰</span><span>Desserts</span></button>
+      </div>
+    </div>
+
+    <div class="recipe-grid" id="all-recipes-grid"></div>
+    <p id="no-results" class="no-results hidden">No recipes found. Try another mood or ingredient.</p>
+  </section>
+</div>
+
+<!-- DETAIL PAGE -->
+<div id="page-detail" class="page">
+  <div id="detail-root" class="detail-wrap"></div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="page-about" class="page">
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">ABOUT</p>
+        <h2 class="section-title">The girl behind KIMIKO.</h2>
+      </div>
+    </div>
+    <p class="section-desc" style="max-width:520px;">
+      KIMIKO was born from the idea that your food can be as cute as your Pinterest board and still be made from real, whole ingredients that actually nourish you.
+    </p>
+  </section>
+</div>
+
+<footer class="footer">
+  <p><span class="brand">KIMIKO</span> · whole-food, it-girl recipes.</p>
+</footer>
+
+<script>
+  /* RECIPES DATA (same structure as before) */
+  const RECIPES = [
+    {
+      id: 1,
+      title: "Golden Turmeric Oat Bowl",
+      category: "breakfast",
+      time: "15 min",
+      servings: 2,
+      image: "https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=600&q=80",
+      description: "A warming, anti-inflammatory breakfast bowl made with rolled oats, fresh turmeric, banana, and toasted seeds.",
+      ingredients: [
+        "1 cup rolled oats",
+        "2 cups water",
+        "1 tsp fresh turmeric, grated",
+        "1 banana, sliced",
+        "1 tbsp pumpkin seeds",
+        "1 tbsp sunflower seeds",
+        "1 tsp raw honey",
+        "Pinch of black pepper",
+        "Pinch of cinnamon"
+      ],
+      steps: [
+        "Bring water to a boil in a small saucepan.",
+        "Add rolled oats and reduce heat to medium. Cook for 5 minutes, stirring occasionally.",
+        "Stir in grated turmeric, cinnamon, and black pepper.",
+        "Pour into bowls and top with banana slices, pumpkin seeds, and sunflower seeds.",
+        "Drizzle with raw honey and serve immediately."
+      ]
+    },
+    {
+      id: 2,
+      title: "Roasted Sweet Potato & Lentil Bowl",
+      category: "lunch",
+      time: "40 min",
+      servings: 2,
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80",
+      description: "Hearty roasted sweet potato over green lentils with lemon tahini drizzle and fresh herbs.",
+      ingredients: [
+        "2 medium sweet potatoes, cubed",
+        "1 cup green lentils",
+        "2 cups vegetable broth",
+        "1 garlic clove, minced",
+        "2 tbsp tahini",
+        "Juice of 1 lemon",
+        "Handful of fresh parsley",
+        "2 tbsp olive oil",
+        "Salt and pepper to taste"
+      ],
+      steps: [
+        "Preheat oven to 200°C. Toss sweet potato cubes in olive oil, salt, and pepper.",
+        "Roast for 25–30 minutes until golden and tender.",
+        "Meanwhile, cook lentils in vegetable broth with garlic for 20 minutes until tender.",
+        "Whisk tahini with lemon juice and 2 tbsp water to make dressing.",
+        "Assemble: lentils on the base, roasted sweet potato on top, drizzle with tahini, garnish with parsley."
+      ]
+    },
+    {
+      id: 3,
+      title: "Avocado & Black Bean Wrap",
+      category: "lunch",
+      time: "10 min",
+      servings: 2,
+      image: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&q=80",
+      description: "Creamy avocado and spiced black beans wrapped in a whole grain tortilla with crunchy cabbage slaw.",
+      ingredients: [
+        "2 whole grain tortillas",
+        "1 can black beans, rinsed",
+        "1 ripe avocado",
+        "1/4 red cabbage, shredded",
+        "1 lime",
+        "1/2 tsp cumin",
+        "1/2 tsp smoked paprika",
+        "Fresh coriander",
+        "Salt to taste"
+      ],
+      steps: [
+        "Mash avocado with lime juice, salt, and a pinch of cumin.",
+        "Warm black beans in a pan with cumin and smoked paprika for 3 minutes.",
+        "Warm tortillas briefly in a dry pan.",
+        "Spread avocado on each tortilla, top with beans, cabbage, and coriander.",
+        "Roll tightly and slice in half. Serve immediately."
+      ]
+    },
+    {
+      id: 4,
+      title: "Miso Ginger Broth with Soba",
+      category: "dinner",
+      time: "25 min",
+      servings: 2,
+      image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80",
+      description: "A deeply nourishing broth with buckwheat soba noodles, bok choy, and earthy shiitake mushrooms.",
+      ingredients: [
+        "100g soba noodles (100% buckwheat)",
+        "3 cups vegetable broth",
+        "2 tbsp white miso paste",
+        "1 tsp fresh ginger, grated",
+        "1 garlic clove, minced",
+        "100g shiitake mushrooms, sliced",
+        "2 bok choy, halved",
+        "2 spring onions, sliced",
+        "1 tsp sesame seeds"
+      ],
+      steps: [
+        "Bring vegetable broth to a gentle simmer. Add ginger and garlic.",
+        "Add mushrooms and simmer for 8 minutes.",
+        "Add bok choy and cook for 3 more minutes.",
+        "Cook soba noodles separately according to package. Drain and rinse.",
+        "Dissolve miso paste in a little broth, then stir back in (do not boil after adding miso).",
+        "Divide noodles into bowls, pour broth over, top with spring onions and sesame seeds."
+      ]
+    },
+    {
+      id: 5,
+      title: "Baked Herb Falafel",
+      category: "dinner",
+      time: "45 min",
+      servings: 4,
+      image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80",
+      description: "Crispy baked falafel made from scratch with dried chickpeas, fresh herbs, and warming spices.",
+      ingredients: [
+        "250g dried chickpeas (soaked overnight)",
+        "1 small onion, roughly chopped",
+        "3 garlic cloves",
+        "Large handful fresh parsley",
+        "Large handful fresh coriander",
+        "1 tsp cumin",
+        "1 tsp coriander powder",
+        "1/2 tsp cayenne",
+        "Salt and pepper",
+        "2 tbsp sesame seeds"
+      ],
+      steps: [
+        "Drain soaked chickpeas (do not cook — raw soaked chickpeas only).",
+        "Blend chickpeas, onion, garlic, herbs, and spices in a food processor until coarse.",
+        "Season generously and refrigerate mixture for 30 minutes.",
+        "Preheat oven to 210°C. Line a tray with parchment.",
+        "Form mixture into small balls, press slightly, roll in sesame seeds.",
+        "Bake for 25–30 minutes, flipping halfway, until golden and crisp."
+      ]
+    },
+    {
+      id: 6,
+      title: "Apple Walnut Energy Balls",
+      category: "snacks",
+      time: "15 min",
+      servings: 12,
+      image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80",
+      description: "No-bake energy bites with dried apple, walnuts, oats, and natural sweetness from dates.",
+      ingredients: [
+        "1 cup rolled oats",
+        "8 Medjool dates, pitted",
+        "1/2 cup walnuts",
+        "1/4 cup dried apple, chopped",
+        "1 tbsp almond butter",
+        "1/2 tsp cinnamon",
+        "Pinch of sea salt"
+      ],
+      steps: [
+        "Soak dates in warm water for 10 minutes, then drain.",
+        "Pulse walnuts in a food processor until roughly crumbled.",
+        "Add oats, dates, almond butter, cinnamon, and salt. Blend until mixture sticks together.",
+        "Stir in chopped dried apple by hand.",
+        "Roll into balls (about 1 tbsp each) and refrigerate for 30 minutes.",
+        "Store in an airtight container in the fridge for up to 1 week."
+      ]
+    },
+    {
+      id: 7,
+      title: "Green Goddess Smoothie",
+      category: "drinks",
+      time: "5 min",
+      servings: 1,
+      image: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=600&q=80",
+      description: "A vibrant whole-food smoothie with spinach, banana, cucumber, and fresh mint.",
+      ingredients: [
+        "2 handfuls fresh spinach",
+        "1 frozen banana",
+        "1/2 cucumber",
+        "Juice of 1/2 lime",
+        "Small handful fresh mint",
+        "1 cup coconut water",
+        "1 tsp spirulina (optional)",
+        "3–4 ice cubes"
+      ],
+      steps: [
+        "Add all ingredients to a high-speed blender.",
+        "Blend on high for 60 seconds until completely smooth.",
+        "Taste and adjust — add more lime for brightness, more banana for sweetness.",
+        "Pour into a glass and serve immediately."
+      ]
+    },
+    {
+      id: 8,
+      title: "Mango Coconut Chia Pudding",
+      category: "desserts",
+      time: "5 min + overnight",
+      servings: 2,
+      image: "https://images.unsplash.com/photo-1546548970-71785318a17b?w=600&q=80",
+      description: "A creamy, tropical dessert made with just chia seeds, coconut milk, and fresh mango.",
+      ingredients: [
+        "4 tbsp chia seeds",
+        "1.5 cups coconut milk (full fat)",
+        "1 ripe mango, diced",
+        "1 tbsp raw honey or maple syrup",
+        "1/2 tsp vanilla bean",
+        "Fresh mint to garnish",
+        "Toasted coconut flakes"
+      ],
+      steps: [
+        "Mix chia seeds, coconut milk, honey, and vanilla in a jar or bowl.",
+        "Stir well, then stir again after 10 minutes to prevent clumping.",
+        "Cover and refrigerate overnight (or minimum 4 hours).",
+        "In the morning, stir again — it should be thick and creamy.",
+        "Layer into glasses with diced mango, top with coconut flakes and fresh mint."
+      ]
+    },
+    {
+      id: 9,
+      title: "Roasted Tomato Lentil Soup",
+      category: "dinner",
+      time: "50 min",
+      servings: 4,
+      image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80",
+      description: "Rich, slow-roasted tomatoes blended with red lentils and smoked paprika into a velvety, satisfying soup.",
+      ingredients: [
+        "500g ripe tomatoes, halved",
+        "1 cup red lentils",
+        "1 onion, chopped",
+        "3 garlic cloves",
+        "1 tsp smoked paprika",
+        "1 tsp cumin",
+        "1 litre vegetable broth",
+        "2 tbsp olive oil",
+        "Salt and pepper",
+        "Fresh basil to serve"
+      ],
+      steps: [
+        "Preheat oven to 190°C. Place tomatoes cut-side up on a tray, drizzle with oil, roast 30 mins.",
+        "Sauté onion and garlic in olive oil until golden.",
+        "Add cumin and paprika, stir for 1 minute.",
+        "Add lentils, roasted tomatoes, and broth. Simmer 20 minutes until lentils are soft.",
+        "Blend until smooth. Season generously.",
+        "Serve topped with fresh basil and a drizzle of olive oil."
+      ]
+    },
+    {
+      id: 10,
+      title: "Overnight Berry Oats",
+      category: "breakfast",
+      time: "5 min + overnight",
+      servings: 1,
+      image: "https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=600&q=80",
+      description: "Effortless overnight oats layered with mixed berries, chia seeds, and a swirl of almond butter.",
+      ingredients: [
+        "1/2 cup rolled oats",
+        "3/4 cup oat milk",
+        "1 tbsp chia seeds",
+        "1/2 cup mixed berries (fresh or frozen)",
+        "1 tbsp almond butter",
+        "1 tsp maple syrup",
+        "Pinch of cinnamon"
+      ],
+      steps: [
+        "Combine oats, oat milk, chia seeds, maple syrup, and cinnamon in a jar.",
+        "Stir well, seal, and refrigerate overnight.",
+        "In the morning, stir and add a splash of oat milk if too thick.",
+        "Top with mixed berries and a swirl of almond butter.",
+        "Eat cold directly from the jar."
+      ]
+    }
+  ];
+
+  let currentFilter = "all";
+
+  function toggleMenu() {
+    const m = document.getElementById("mobile-menu");
+    if (!m) return;
+    m.classList.toggle("visible");
+    m.classList.toggle("hidden");
+  }
+
+  function showPage(page) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page-" + page).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (page === "home") renderFeatured();
+    if (page === "recipes") filterRecipes();
+  }
+
+  function recipeCard(r) {
+    return `
+      <div class="recipe-card" onclick="openDetail(${r.id})">
+        <div class="recipe-img"><img src="${r.image}" alt="${r.title}" loading="lazy"/></div>
+        <div class="recipe-pill">${r.category}</div>
+        <div class="recipe-title">${r.title}</div>
+        <div class="recipe-desc">${r.description.substring(0, 80)}…</div>
+        <div class="recipe-meta">
+          <span>⏱ ${r.time}</span>
+          <span>🍽 ${r.servings} servings</span>
+          <span class="recipe-arrow">→</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderFeatured() {
+    const root = document.getElementById("featured-grid");
+    if (!root) return;
+    root.innerHTML = RECIPES.slice(0, 6).map(recipeCard).join("");
+  }
+
+  function setFilterAndGo(cat, btn) {
+    showPage("recipes");
+    const chips = document.querySelectorAll(".cat-chip");
+    chips.forEach(c => c.classList.remove("active"));
+    if (btn) btn.classList.add("active");
+    currentFilter = cat;
+    filterRecipes();
+  }
+
+  function setFilter(cat, btn) {
+    currentFilter = cat;
+    const chips = document.querySelectorAll(".filter-chips .cat-chip");
+    chips.forEach(c => c.classList.remove("active"));
+    if (btn) btn.classList.add("active");
+    filterRecipes();
+  }
+
+  function filterRecipes() {
+    const qInput = document.getElementById("search-input");
+    const q = qInput ? qInput.value.toLowerCase() : "";
+    const filtered = RECIPES.filter(r => {
+      const matchCat = currentFilter === "all" || r.category === currentFilter;
+      const matchSearch =
+        r.title.toLowerCase().includes(q) ||
+        r.description.toLowerCase().includes(q);
+      return matchCat && matchSearch;
+    });
+
+    const grid = document.getElementById("all-recipes-grid");
+    if (grid) grid.innerHTML = filtered.map(recipeCard).join("");
+
+    const msg = document.getElementById("no-results");
+    if (msg) msg.classList.toggle("hidden", filtered.length !== 0);
+  }
+
+  function openDetail(id) {
+    const r = RECIPES.find(x => x.id === id);
+    if (!r) return;
+    const root = document.getElementById("detail-root");
+    root.innerHTML = `
+      <a href="#" class="back-link" onclick="showPage('recipes')">← Back to recipes</a>
+      <div class="detail-tag">${r.category}</div>
+      <h1 class="detail-title">${r.title}</h1>
+      <div class="detail-meta">
+        <span>⏱ ${r.time}</span>
+        <span>🍽 ${r.servings} servings</span>
+      </div>
+      <img class="detail-img" src="${r.image}" alt="${r.title}"/>
+      <p class="detail-desc">${r.description}</p>
+      <div class="detail-body">
+        <div>
+          <h3>Ingredients</h3>
+          <ul class="ingredients-list">
+            ${r.ingredients.map(i => `<li>${i}</li>`).join("")}
+          </ul>
+        </div>
+        <div>
+          <h3>Method</h3>
+          <ol class="steps-list">
+            ${r.steps.map(s => `<li>${s}</li>`).join("")}
+          </ol>
+        </div>
+      </div>
+    `;
+    showPage("detail");
+  }
+
+  // init
+  renderFeatured();
+  filterRecipes();
+</script>
+</body>
+</html>
